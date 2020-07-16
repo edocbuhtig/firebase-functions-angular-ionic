@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AngularFireFunctions } from '@angular/fire/functions';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +8,15 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+
+  constructor(private fb: AngularFireFunctions) {}
+
+  firebaseFunction() {
+    const stripeobj = this.fb.httpsCallable('getStripekey');
+
+    stripeobj({}).subscribe(data => {
+      console.log("Stripe Key: "+ data.msg)
+    })
+  }
 
 }
